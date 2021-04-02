@@ -5,7 +5,6 @@
 }(this, (function () { 'use strict';
 
     function preload(images) {
-        console.log('preload',images);
         var imageNodes = [];
         var count = 0, doneAction = function (images) { };
         images = (typeof images != 'object') ? [images] : images;
@@ -60,7 +59,6 @@
         this.options = options;
         this.blur = options.blur || 0;
         this.mode = options.mode ;
-        console.log();
         // @ts-ignore
         this.$els = options.images.nodeType == 1 ? [options.images] : [].slice.call(options.images);
         if (this.mode == 'auto') {
@@ -77,14 +75,11 @@
     blurify.prototype.useCSSMode = function () {
         var _this = this;
         this.$els.map(function (el) {
-            console.log('el', el);
             el.src = el.dataset ? el.dataset.src : el.getAttribute('data-src');
             el.style['filter'] = el.style['-webkit-filter'] = _this.blur ?  "blur(" + _this.blur + "px)" : '';
         });
-        console.log(this.$els)
     };
     blurify.prototype.useCanvasMode = function () {
-        console.log('canvas useCanvas',)
         var _this = this;
         this.imageType = this.options.imageType || "image/jpeg";
         preload(this.$els).done(function (images) {
